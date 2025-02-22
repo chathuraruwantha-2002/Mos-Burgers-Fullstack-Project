@@ -1,0 +1,99 @@
+.category-icons-container {
+    border-radius: 8px;
+    background-color: #F9F3EC;
+    padding: 16px;
+}
+
+.category-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.category-img {
+    width: 70px;  
+    height: 70px;  
+    object-fit: contain;  
+    border-radius: 8px; 
+    margin-left: 4px;
+    margin-right: 4px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.category-img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); 
+}
+
+
+.category-img:active {
+    transform: scale(0.95); 
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.form-control {
+    border-radius: 5px;
+    padding: 10px;
+    border-color: #F36943;
+}
+
+.form-control:focus {
+    border-color: #F36943;
+    box-shadow: 0 0 0 0.2rem rgba(243, 105, 67, 0.25);
+}
+
+.btn-add-new-item {
+    background-color: #31d256;
+    color: white;
+    border: none;
+    padding: 6px 0px; 
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add-new-item:hover {
+    background-color: #16ea44;
+    color: white;
+}
+
+.card {
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+    margin: 0;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-title {
+    font-size: 17px;
+    color: #e21c1c;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.card-text {
+    font-size: 15px;
+    color: #333;
+}
+
+.cards-grid-rounded {
+    border-radius: 15px;
+}
+
+/* form CSS */
+.modal-content {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-dialog-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}

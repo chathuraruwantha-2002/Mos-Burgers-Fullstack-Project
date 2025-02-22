@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOS Burgers Shop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/CSS  Files/orders_manager.css">
+    <link rel="stylesheet" href="/CSS  Files/navbar.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar-rounded">
+        <div class="dropdown profile-animation">
+            <img src="/Images and lcons/man.png" alt="Profile" title="Profile" class="profile-img"
+                data-toggle="dropdown">
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</a>
+                <a class="dropdown-item" href="/HTML Files/login.html"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            </div>
+        </div>
+        <div class="icon-btn">
+            <a href="/HTML Files/homepage.html"><img
+                    src="https://img.icons8.com/?size=100&id=14096&format=png&color=000000" alt="Home" title="Home"></a>
+        </div>
+        <div class="icon-btn">
+            <a href="/HTML Files/place_order.html"><img
+                    src="https://img.icons8.com/?size=100&id=3576&format=png&color=000000" alt="Place Order"
+                    title="Place Order"></a>
+        </div>
+        <div class="icon-btn">
+            <a href="/HTML Files/items_manager.html"><img
+                    src="https://img.icons8.com/?size=100&id=STk3pGIlNVNO&format=png&color=000000" alt="Items Manager"
+                    title="Items Manager"></a>
+        </div>
+        <div class="icon-btn">
+            <a href="/HTML Files/orders_manager.html"><img
+                    src="https://img.icons8.com/?size=100&id=22168&format=png&color=000000" alt="Orders Manager"
+                    title="Orders Manager"></a>
+        </div>
+        <div class="icon-btn">
+            <a href="/HTML Files/customer_manager.html"><img
+                    src="https://img.icons8.com/?size=100&id=u3hwP-G9VHC3&format=png&color=000000"
+                    alt="Customers Manager" title="Customers Manager"></a>
+        </div>
+        <div class="icon-btn">
+            <a href="/HTML Files/reports.html"><img
+                    src="https://img.icons8.com/?size=100&id=9646&format=png&color=000000" alt="Reports"
+                    title="Reports"></a>
+        </div>
+    </nav>
+
+    <!-- Search Section -->
+    <div class="container mt-5">
+        <div class="row mb-2">
+            <div class="col-4 m-4">
+                <input type="text" class="form-control" placeholder="Search Orders..." id="search-order">
+            </div>
+        </div>
+    </div>
+
+    <!-- orders-table -->
+    <div class="container border table-grid-rounded">
+
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle table-frame">
+                    <thead>
+                        <tr>
+                            <th>Order Id</th>
+                            <th>Customer Name</th>
+                            <th>Contact No</th>
+                            <th>Order date</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- View Customer Modal -->
+    <div class="modal fade" id="ViewOrderModal" tabindex="-1" aria-labelledby="viewOrderModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-lg">
+
+                <div class="m-4 text-center">
+                    <img id="viewCustomerImage" src="/Images and lcons/man.png" alt="Item Image" class="img-fluid"
+                        style="max-width: 100px;">
+                    <hr>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-5">
+                        <strong>Order ID :</strong> <span id="viewOrderId"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Customer Name :</strong> <span id="viewCustomerName"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Customer Address :</strong> <span id="viewCustomerAddress"></span>
+                    </div>
+                    <div class="mb-5">
+                        <strong>Phone number :</strong> <span id="viewCustomerPhno"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Date Placed :</strong> <span id="viewOrderdate"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>items :</strong> <span id="viewOrderItems"></span>
+                    </div>
+                    <div class="mb-5">
+                        <strong>Additional info :</strong> <span id="viewOrderAdi"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Sub total :</strong> <span id="viewOrderSubTotal"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Discount :</strong> <span id="viewOrderDiscount"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Total :</strong> <span id="viewOrderTotal"></span>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/JS Files/orders_manager.js" type="module"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

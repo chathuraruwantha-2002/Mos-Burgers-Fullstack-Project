@@ -1,0 +1,75 @@
+/* Navbar CSS */
+
+.navbar-rounded {
+    width: 100%;
+    background-color: #fff;
+    border-bottom-right-radius: 25px;
+    box-shadow: 0px 7px 4px rgba(255, 68, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px 0;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.icon-btn {
+    background-color: #fdb813;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 1px 1px 3px rgba(252, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-animation {
+    border-radius: 100px;
+    padding: 5px;
+    box-shadow: 1px 1px 3px rgba(252, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-animation:hover {
+    transform: scale(1.10);
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-menu {
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 1px 1px 3px rgba(252, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.dropdown-item:hover:active {
+    color: #000;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 1px 1px 3px rgba(252, 0, 0, 0.2);
+}
+
+.icon-btn img {
+    width: 40px;
+    height: 40px;
+}
+
+.icon-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+

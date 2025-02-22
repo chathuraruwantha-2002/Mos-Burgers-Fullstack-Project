@@ -1,0 +1,37 @@
+
+/* Calendar CSS */
+
+.day {
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.day:first-child {
+    overflow: visible;
+    padding-left: 12px;
+}
+
+header {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.row.border {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.container-calender-header {
+    background-color: rgb(246, 135, 24);
+    color: black;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.container-calender-header h5 {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+

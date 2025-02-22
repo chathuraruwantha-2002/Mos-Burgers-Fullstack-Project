@@ -1,0 +1,38 @@
+.card {
+    border-radius: 15px;
+    border: 1px solid #ddd;
+}
+
+.btn-print {
+    border-radius: 10px;
+    padding: 10px;
+    width: 70px;
+    color: white;
+    border-color: #77d761;
+    background-color: #6fe370;
+}
+.btn-print:hover {
+    background-color: #28d301;
+    color: #ffffff;
+    border-color: #63f343;
+}
+.btn-print:focus {
+    box-shadow: 0 0 0 0.2rem rgba(108, 243, 67, 0.25);
+}
+
+.custom-button {
+    border-radius: 5px;
+    padding: 10px;
+    border-color: #77d761;
+    color: white;
+    background-color: #6fe370;
+}
+.custom-button:hover {
+    background-color: #28d301;
+    color: #ffffff;
+    border-color: #63f343;
+}
+
+.custom-button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(108, 243, 67, 0.25);
+}

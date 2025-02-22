@@ -1,0 +1,53 @@
+
+.form-control {
+    border-radius: 5px;
+    padding: 10px;
+    border-color: #F36943;
+}
+
+.form-control:focus {
+    border-color: #F36943;
+    box-shadow: 0 0 0 0.2rem rgba(243, 105, 67, 0.25);
+}
+
+.btn-add-new-customer {
+    background-color: #31d256;
+    color: white;
+    border: none;
+    padding: 6px 0px; 
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add-new-customer:hover {
+    background-color: #16ea44;
+    color: white;
+}
+
+.card {
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+    margin: 0;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-title {
+    font-size: 17px;
+    color: #e21c1c;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.card-text {
+    font-size: 15px;
+    color: #333;
+}
+
+.cards-grid-rounded {
+    border-radius: 15px;
+}

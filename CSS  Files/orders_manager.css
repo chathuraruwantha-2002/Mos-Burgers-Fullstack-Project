@@ -1,0 +1,59 @@
+/* search bar */
+.form-control {
+    border-radius: 5px;
+    padding: 10px;
+    border-color: #F36943;
+}
+
+.form-control:focus {
+    border-color: #F36943;
+    box-shadow: 0 0 0 0.2rem rgba(243, 105, 67, 0.25);
+}
+
+/* table grid */
+.table-grid-rounded {
+    border-radius: 15px;
+}
+
+
+/* table */
+.table-frame {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 21px;
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.table thead th {
+    background-color: #dddddd;
+    font-weight: 650;
+}
+.table thead th:first-child {
+    border-top-left-radius: 10px;
+}
+.table thead th:last-child {
+    border-top-right-radius: 10px;
+}
+
+.table tbody td {
+    vertical-align: middle;
+}
+.status-completed {
+    color: rgb(8, 164, 8);
+    font-weight: bold;
+}
+.action-icons a {
+    text-decoration: none;
+    margin-right: 10px; 
+}
+.action-icons a:last-child {
+    margin-right: 0;
+}
+.rounded-circle{
+    width: 40px;
+    height: 40px;
+}
