@@ -12,4 +12,6 @@ public interface ProductService {
     boolean updateProduct(Product product);
 
     boolean deleteProduct(Integer id);
+
+    List<Product> getProductByCategory(String category);
 }

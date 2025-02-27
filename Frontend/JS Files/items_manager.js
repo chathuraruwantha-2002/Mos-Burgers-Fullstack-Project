@@ -1,148 +1,219 @@
-import { getProducts, setProduct, SearchProductUsingIndex, deleteProduct, updateProduct } from "./data.js";
 
 //Category Icons
 let categoryIcons = document.querySelectorAll(".category-img");
-
-//Items
-let items = getProducts();
-
 //items bar handling and loading items to the grid
 categoryIcons.forEach((icon) => {
   icon.addEventListener("click", function () {
 
     document.getElementById("items-grid").innerHTML = '';
 
-    if (icon.id === "category-1") {
-      console.log(items.Burgers);
+    if (icon.id === "category-1") {//burgers
+      getProductsByCategory("Burgers");
 
-      for (let i = 0; i < items.Burgers.length; i++) {
+    } else if (icon.id === "category-2") { //pastas
+      getProductsByCategory("Pastas");
+
+    } else if (icon.id === "category-3") { //chicken
+      getProductsByCategory("Chicken");
+
+    } else if (icon.id === "category-4") { //fries
+      getProductsByCategory("Fries");
+
+    } else if (icon.id === "category-5") { //submarines
+      getProductsByCategory("Submarines");
+
+    } else if (icon.id === "category-6") { //beverages
+      getProductsByCategory("Beverages");
+
+    }
+  });
+});
+
+
+
+//get Product by Category
+function getProductsByCategory(category) {
+  return fetch(`http://localhost:8080/product/get-by-category/${category}`)
+    .then(response => response.json())
+    .then((items) => {
+      items.forEach((item, index) => {
+        console.log(item);
         document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
+          `<div class="col mb-3" data-index="${index}">
              <div class="card h-100">
                  <img src="/Images and lcons/turkey-burger.png" class="card-img-top" alt="Item 1">
                  <div class="card-body text-center pt-0">
                      <hr class="my-1">
-                     <h5 class="card-title">${items.Burgers[i].name}</h5>
-                     <p class="card-text">Rs ${items.Burgers[i].price}.00</p>
+                     <h5 class="card-title">${item.name}</h5>
+                     <p class="card-text">Rs ${item.price}.00</p>
                      <div class="d-flex justify-content-center gap-2 mt-3">
-                         <a href="#" class="view-item"><i class="bi bi-eye-fill p-2" data-index="${i}" data-category="Burgers"></i></a>
-                         <a href="#" class="delete-item"><i class="bi bi-trash p-2 text-danger" data-index="${i}" data-category="Burgers"></i></a>
-                         <a href="#" class="edit-item"><i class="bi bi-pencil-square p-2" data-index="${i}" data-category="Burgers"></i></a>
+                         <a href="#" class="view-item"><i class="bi bi-eye-fill p-2"></i></a>
+                         <a href="#" class="delete-item"><i class="bi bi-trash p-2 text-danger"></i></a>
+                         <a href="#" class="edit-item"><i class="bi bi-pencil-square p-2"></i></a>
                      </div>
                  </div>
              </div>
          </div>`;
 
-      }
-    } else if (icon.id === "category-2") {
-      console.log(items.Pasta);
+      });
 
-      for (let i = 0; i < items.Pasta.length; i++) {
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
-             <div class="card h-100">
-                 <img src="/Images and lcons/pasta.png" class="card-img-top" alt="Item 1">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${items.Pasta[i].name}</h5>
-                     <p class="card-text">Rs ${items.Pasta[i].price}.00</p>
-                     <div class="d-flex justify-content-center gap-2 mt-3">
-                         <a href="#" class="view-item"><i class="bi bi-eye-fill p-2" data-index="${i}" data-category="Pasta"></i></a>
-                         <a href="#" class="delete-item"><i class="bi bi-trash p-2 text-danger" data-index="${i}" data-category="Pasta"></i></a>
-                         <a href="#" class="edit-item"><i class="bi bi-pencil-square p-2" data-index="${i}" data-category="Pasta"></i></a>
-                     </div>
-                 </div>
-             </div>
-         </div>`;
-      }
-    } else if (icon.id === "category-3") {
-      console.log(items.Chicken);
 
-      for (let i = 0; i < items.Chicken.length; i++) {
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
-             <div class="card h-100">
-                 <img src="/Images and lcons/chicken.png" class="card-img-top" alt="Item 1">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${items.Chicken[i].name}</h5>
-                     <p class="card-text">Rs ${items.Chicken[i].price}.00</p>
-                     <div class="d-flex justify-content-center gap-2 mt-3">
-                         <a href="#" class="view-item"><i class="bi bi-eye-fill p-2" data-index="${i}" data-category="Chicken"></i></a>
-                         <a href="#" class="delete-item"><i class="bi bi-trash p-2 text-danger" data-index="${i}" data-category="Chicken"></i></a>
-                         <a href="#" class="edit-item"><i class="bi bi-pencil-square p-2" data-index="${i}" data-category="Chicken"></i></a>
-                     </div>
-                 </div>
-             </div>
-         </div>`;
+      // Add event listener for clicking on cards
+      document.getElementById("items-grid").addEventListener("click", function (event) {
+        const card = event.target.closest('.col');
+        if (card) {
+          const itemIndex = card.getAttribute('data-index');
+          const item = items[itemIndex];
+          console.log(item);
+          console.log("Clicked item data:");
 
-      }
-    } else if (icon.id === "category-4") {
-      console.log(items.Fries);
+          // View Customer
+          if (event.target && event.target.matches("a.view-item i")) {
+            console.log("Clicked by view item");
+            showProductdetails(item);
 
-      for (let i = 0; i < items.Fries.length; i++) {
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
-             <div class="card h-100">
-                 <img src="/Images and lcons/fries.png" class="card-img-top" alt="Item 1">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${items.Fries[i].name}</h5>
-                     <p class="card-text">Rs ${items.Fries[i].price}.00</p>
-                     <div class="d-flex justify-content-center gap-2 mt-3">
-                         <a href="#" class="view-item"><i class="bi bi-eye-fill p-2" data-index="${i}" data-category="Fries"></i></a>
-                         <a href="#" class="delete-item"><i class="bi bi-trash p-2 text-danger" data-index="${i}" data-category="Fries"></i></a>
-                         <a href="#" class="edit-item"><i class="bi bi-pencil-square p-2" data-index="${i}" data-category="Fries"></i></a>
-                     </div>
-                 </div>
-             </div>
-         </div>`;
-      }
-    } else if (icon.id === "category-5") {
-      console.log(items.Submarines);
+          }
 
-      for (let i = 0; i < items.Submarines.length; i++) {
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
-             <div class="card h-100">
-                 <img src="/Images and lcons/Submarine bun.png" class="card-img-top" alt="Item 1">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${items.Submarines[i].name}</h5>
-                     <p class="card-text">Rs ${items.Submarines[i].price}.00</p>
-                     <div class="d-flex justify-content-center gap-2 mt-3">
-                         <a href="#" class="view-item"><i class="bi bi-eye-fill p-2" data-index="${i}" data-category="Submarines"></i></a>
-                         <a href="#" class="delete-item"><i class="bi bi-trash p-2 text-danger" data-index="${i}" data-category="Submarines"></i></a>
-                         <a href="#" class="edit-item"><i class="bi bi-pencil-square p-2" data-index="${i}" data-category="Submarines"></i></a>
-                     </div>
-                 </div>
-             </div>
-         </div>`;
-      }
-    } else if (icon.id === "category-6") {
-      console.log(items.Beverages);
+          // Delete Customer
+          if (event.target && event.target.matches("a.delete-item i")) {
+            console.log("Clicked by delete item");
+            deleteProduct(item.productId);
 
-      for (let i = 0; i < items.Beverages.length; i++) {
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
-             <div class="card h-100">
-                 <img src="/Images and lcons/bevarages.png" class="card-img-top" alt="Item 1">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${items.Beverages[i].name}</h5>
-                     <p class="card-text">Rs ${items.Beverages[i].price}.00</p>
-                     <div class="d-flex justify-content-center gap-2 mt-3">
-                         <a href="#" class="view-item"><i class="bi bi-eye-fill p-2" data-index="${i}" data-category="Beverages"></i></a>
-                         <a href="#" class="delete-item"><i class="bi bi-trash p-2 text-danger" data-index="${i}" data-category="Beverages"></i></a>
-                         <a href="#" class="edit-item"><i class="bi bi-pencil-square p-2" data-index="${i}" data-category="Beverages"></i></a>
-                     </div>
-                 </div>
-             </div>
-         </div>`;
-      }
-    }
+          }
+
+          // Edit Customer
+          if (event.target && event.target.matches("a.edit-item i")) {
+            console.log("Clicked by edit item");
+            showUpdateProductDetails(item);
+
+          }
+        }
+      });
+
+    })
+}
+
+
+
+//Show Product Details
+function showProductdetails(product) {
+  console.log(product);
+
+  //document.getElementById("viewItemImage").src = itemObject.image || "/Images and lcons/default.png";
+  document.getElementById("viewItemCode").textContent = product.productId;
+  document.getElementById("viewItemName").textContent = product.name;
+  document.getElementById("viewItemPrice").textContent = product.price.toFixed(2);
+  document.getElementById("viewItemDiscount").textContent = product.discount.toFixed(2);
+  //document.getElementById("viewItemExpire").textContent = itemObject.expireDate || "N/A";
+  document.getElementById("viewItemQuantity").textContent = product.quantityAvailable || "N/A";
+  document.getElementById("viewItemCategory").textContent = product.category || "N/A";
+  document.getElementById("viewItemDescription").textContent = product.description || "N/A";
+
+  // Show the view product modal
+  const viewProductModal = new bootstrap.Modal(document.getElementById("ViewProductModal"));
+  viewProductModal.show();
+}
+
+
+
+//Delete Product
+function deleteProduct(productId) {
+
+  const raw = "";
+
+  const requestOptions = {
+    method: "DELETE",
+    body: raw,
+    redirect: "follow"
+  };
+
+  fetch(`http://localhost:8080/product/delete/${productId}`, requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error));
+
+  //reload the page
+  location.reload();
+
+}
+
+//Update Product
+function showUpdateProductDetails(product) {
+  console.log(product);
+
+
+  document.getElementById("UpdateItemCode").value = product.productId;
+  document.getElementById("UpdateitemName").value = product.name;
+  document.getElementById("UpdateitemPrice").value = parseFloat(product.price).toFixed(2);
+  document.getElementById("UpdateitemDiscountPrice").value = parseFloat(product.discount).toFixed(2);
+  //document.getElementById("editItemExpire").value = itemObject.expireDate || "";
+  //document.getElementById("editItemQuantity").value = itemObject.quantity || "";
+  //document.getElementById("editItemCategory").value = itemObject.category || "";
+  //document.getElementById("editItemDescription").value = itemObject.description || "";
+  //document.getElementById("editItemAdditional").value = itemObject.additionalInfo || "";
+  //document.getElementById("editItemImage").src = itemObject.image || "/Images and lcons/default.png";
+
+
+  // Update product button
+  document.getElementById("updateProductBtn").addEventListener("click", function (event) {
+    event.preventDefault();
+    UpdateProductinfo(product);
+  })
+
+  //cancel button
+  document.getElementById("cancelUpdateBtn").addEventListener("click", () => {
+    UpdateProductModal.hide();
+    document.getElementById("productFormUpdate").reset();
+  })
+
+  // Show the update product modal
+  const UpdateProductModal = new bootstrap.Modal(document.getElementById("updateProductModal"));
+  UpdateProductModal.show();
+
+}
+
+function UpdateProductinfo(product) {
+  console.log(product);
+
+  // Get the form data
+  //const productId = document.getElementById("UpdateItemCode").value;
+  const name = document.getElementById("UpdateitemName").value;
+  const price = parseFloat(document.getElementById("UpdateitemPrice").value);
+  const discount = parseFloat(document.getElementById("UpdateitemDiscountPrice").value);
+  //image = document.getElementById("editItemImage").src;
+
+
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  const raw = JSON.stringify({
+    "productId": product.productId,
+    "name": name,
+    "price": price,
+    "discount": discount,
+    "image": product.image,
+    "description": product.description,
+    "category": product.category,
+    "quantityAvailable": product.quantityAvailable
   });
-});
+
+  const requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+  };
+
+  fetch("http://localhost:8080/product/update", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error));
+
+  //reload the page
+  location.reload();
+}
+
+
 
 
 // Trigger the "Burgers" category items on page load
@@ -153,60 +224,74 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Add New Product Modal
-const addProductModal = new bootstrap.Modal(document.getElementById("addProductModal"));
 
 
-// Open form
+
+
+// Add New Product
+
 document.getElementById("addNewProductBtn").addEventListener("click", () => {
+
+  //form submit function when click the add product button
+  document.getElementById("addProductBtn").addEventListener("click", function (event) {
+    event.preventDefault();
+    addNewProduct();
+    addProductModal.hide();
+    document.getElementById("productFormAdd").reset();
+  });
+
+  //cancel button function
+  document.getElementById("cancelBtn").addEventListener("click", () => {
+    addProductModal.hide();
+    document.getElementById("productForm").reset();
+  })
+
+  // Add New Product Modal
+  const addProductModal = new bootstrap.Modal(document.getElementById("addProductModal"));
   addProductModal.show();
 });
 
-//form submit function when click the add product button
-document.getElementById("addProductBtn").addEventListener("click", function (event) {
-  event.preventDefault();
-  addNewProduct();
-  addProductModal.hide();
-  document.getElementById("productFormAdd").reset();
-});
 
-//cancel button function
-document.getElementById("cancelBtn").addEventListener("click", () => {
-  addProductModal.hide();
-  document.getElementById("productForm").reset();
-})
 
 // Add New Product function
 function addNewProduct() {
-  const productCodeInput = document.getElementById("itemCode");
-  const productNameInput = document.getElementById("itemName");
-  const productPriceInput = document.getElementById("itemPrice");
-  const categorySelect = document.getElementById("itemCategory");
-  const discountInput = document.getElementById("itemDiscountPrice");
-  const productImgInput = document.getElementById("itemImage");
+  //const productCodeInput = document.getElementById("itemCode");
+  const productNameInput = document.getElementById("itemName").value;
+  const productPriceInput = document.getElementById("itemPrice").value;
+  const categorySelect = document.getElementById("itemCategory").value;
+  const discountInput = document.getElementById("itemDiscountPrice").value;
+  //const productImgInput = document.getElementById("itemImage").value;
 
-  if (!productCodeInput || !productNameInput || !productPriceInput || !categorySelect || !discountInput || !productImgInput) {
+  if (!productNameInput || !productPriceInput || !categorySelect || !discountInput) {
     console.error("One or more form elements are missing!");
     alert("One or more form elements are missing!");
     return;
   } else {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-    const productCode = productCodeInput.value;
-    const productName = productNameInput.value;
-    const productPrice = parseFloat(productPriceInput.value);
-    const productCategory = categorySelect.options[categorySelect.selectedIndex]?.text || '';
-    const discount = parseFloat(discountInput.value);
-    const productImg = productImgInput.value;
+    const raw = JSON.stringify({
+      "name": productNameInput,
+      "price": productPriceInput,
+      "discount": discountInput,
+      "image": "cheesy_fries.jpg", //will be implement
+      "description": "Golden crispy fries loaded with gooey melted cheese.", //need to implement
+      "category": categorySelect, 
+      "quantityAvailable": 42 //need to implement
+    });
 
-    const newProduct = {
-      itemCode: productCode,
-      name: productName,
-      price: productPrice,
-      discount: discount,
-      img: productImg,
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
     };
 
-    setProduct(newProduct, productCategory);
+    fetch("http://localhost:8080/product/add", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+
 
   }
 }
@@ -233,7 +318,7 @@ function searchProducts(searchTerm) {
 }
 
 
-
+/*
 // card click events (view, delete, edit) .......
 
 document.getElementById("items-grid").addEventListener("click", function (event) {
@@ -386,6 +471,6 @@ document.getElementById("items-grid").addEventListener("click", function (event)
 });
 
 
-
+*/
 
 

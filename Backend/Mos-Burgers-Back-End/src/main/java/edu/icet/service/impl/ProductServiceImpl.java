@@ -57,4 +57,17 @@ public class ProductServiceImpl implements ProductService {
             return false;
         }
     }
+
+    @Override
+    public List<Product> getProductByCategory(String category) {
+        List<Product> productList = new ArrayList<>();
+        List<ProductEntity> productEntityList = productRepository.findByCategory(category);
+
+        for (ProductEntity productEntity : productEntityList) {
+            productList.add(mapper.map(productEntity, Product.class));
+        }
+        System.out.println(productList);
+        return productList;
+
+    }
 }
