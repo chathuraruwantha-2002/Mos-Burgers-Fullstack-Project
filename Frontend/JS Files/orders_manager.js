@@ -24,25 +24,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
             orderList.forEach(order => {
 
-                const row = document.createElement('tr');
+                getCustomer(order.custId)
+                    .then(customer => {
 
-                row.innerHTML = `
-                <td>${order.orderId}</td>
-                <td>
-                    <img src="/Images and lcons/man.png" class="rounded-circle me-2 p-1" alt="Avatar">
-                    ${order.empId}
-                </td>
-                <td>${order.empId}</td>
-                <td>${order.date}</td>
-                <td class="status-completed">${order.isReturned}</td>
-                <td>${(order.subTotal - order.discount + order.tax).toFixed(2)}</td>
-                <td class="action-icons">
-                    <a href="#" class="text-primary"><i class="bi bi-eye-fill"></i></a>
-                    <a href="#" class="text-danger"><i class="bi bi-trash-fill"></i></a>
-                </td>
-            `;
+                        const row = document.createElement('tr');
 
-                tableBody.appendChild(row);
+                        row.innerHTML = `
+                    <td>${order.orderId}</td>
+                    <td>
+                        <img src="/Images and lcons/man.png" class="rounded-circle me-2 p-1" alt="Avatar">
+                        ${customer.firstName} ${customer.lastName}
+                    </td>
+                    <td>${customer.phone}</td>
+                    <td>${order.date}</td>
+                    <td class="status-completed">${order.isReturned}</td>
+                    <td>${(order.subTotal - order.discount + order.tax).toFixed(2)}</td>
+                    <td class="action-icons">
+                        <a href="#" class="text-primary"><i class="bi bi-eye-fill"></i></a>
+                        <a href="#" class="text-danger"><i class="bi bi-trash-fill"></i></a>
+                    </td>
+                `;
+
+                        tableBody.appendChild(row);
+
+                    });
 
             })
 
@@ -72,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             });
-        
+
         });
 
 
@@ -100,8 +105,20 @@ document.getElementById('search-order').addEventListener('input', () => {
 function ViewOrderDetails(order) {
     console.log(order);
 
+    //get customer details
+    //getCustomer(order.custId);
+
+    getCustomer(order.custId)
+        .then(customer => {
+            console.log("Customer:", customer);
+            document.getElementById('viewCustomerName').textContent = customer.firstName + " " + customer.lastName;
+            document.getElementById('viewCustomerPhno').textContent = customer.phone;
+            document.getElementById('viewCustomerAddress').textContent = customer.location;
+        });
+
+
     document.getElementById('viewOrderId').textContent = order.orderId;
-   // document.getElementById('viewCustomerName').textContent = order.customerName;
+    // document.getElementById('viewCustomerName').textContent = order.customerName;
     //document.getElementById('viewCustomerPhno').textContent = order.phoneNumber;
     //document.getElementById('viewCustomerAddress').textContent = order.address;
     //document.getElementById('viewOrderItems').textContent = order.items;
@@ -124,18 +141,25 @@ function DeleteOrder(orderId) {
     const raw = "";
 
     const requestOptions = {
-      method: "DELETE",
-      body: raw,
-      redirect: "follow"
+        method: "DELETE",
+        body: raw,
+        redirect: "follow"
     };
-    
-    fetch(`http://localhost:8080/order/delete/${orderId}`, requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
 
-  //reload the page
-  location.reload();
+    fetch(`http://localhost:8080/order/delete/${orderId}`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+
+    //reload the page
+    location.reload();
 }
+
+//get customer by id
+function getCustomer(custId) {
+    return fetch(`http://localhost:8080/customer/get/${custId}`)
+        .then(response => response.json()); // Return the JSON directly
+}
+
 
 

@@ -58,4 +58,13 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
+    @Override
+    public Customer getCustomerById(Integer id) {
+        try {
+            return mapper.map(customerRepository.findById(id).get(), Customer.class);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }
