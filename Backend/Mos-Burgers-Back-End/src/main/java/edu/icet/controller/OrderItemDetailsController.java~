@@ -1,0 +1,25 @@
+package edu.icet.controller;
+
+import edu.icet.dto.OrderItemDetails;
+import edu.icet.service.OrderItemDetailsService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/order-item-details")
+@RequiredArgsConstructor
+public class OrderItemDetailsController {
+
+    final OrderItemDetailsService service;
+    @GetMapping("/get-all")
+    public List<OrderItemDetails> getAll() {
+        return service.getAll();
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<String> addOrderItemDetails(@RequestBody )
+
+}

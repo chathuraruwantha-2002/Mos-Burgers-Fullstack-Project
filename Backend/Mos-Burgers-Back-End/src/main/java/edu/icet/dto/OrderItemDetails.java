@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class OrderItemDetails {
 
+    private Integer orderDetailId;
     private Integer orderId;
     private Integer productId;
     private Double totalPrice;
