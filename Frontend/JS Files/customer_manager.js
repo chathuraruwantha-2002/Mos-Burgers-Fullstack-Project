@@ -235,20 +235,6 @@ function addNewCustomer() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //search function
 const searchInput = document.getElementById("SearchCustomers");
 searchInput.addEventListener("input", () => {
@@ -257,9 +243,18 @@ searchInput.addEventListener("input", () => {
 });
 
 function searchCustomers(searchTerm) {
-  const customers = getCustomers();
-  const filteredCustomers = customers.filter((customer) => customer.firstName.toLowerCase().includes(searchTerm) || customer.lastName.toLowerCase().includes(searchTerm));
-  displayCustomers(filteredCustomers);
+  
+  const customerCards = document.querySelectorAll(".card");
+  customerCards.forEach((card) => {
+    const customerName = card.querySelector(".card-title").textContent.toLowerCase();
+    const customerPhone = card.querySelector(".card-text").textContent.toLowerCase();
+    if (customerName.includes(searchTerm) || customerPhone.includes(searchTerm)) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+  
 }
 
 
