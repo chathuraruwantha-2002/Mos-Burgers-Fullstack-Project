@@ -48,7 +48,7 @@ fetch("http://localhost:8080/customer/get-all")
         // Delete Customer
         if (event.target && event.target.matches("a.delete-customer i")) {
           console.log("Clicked by delete customer");
-          deleteCustomer(customer.id);
+          deleteCustomer(customer.custId);
 
         }
 
@@ -67,12 +67,12 @@ function genderPicture(gender) {
     return "/Images and lcons/man.png";
   } else {
     return "/Images and lcons/woman.png";
-  }
+  } 
 }
 
 function showCustomerdetails(customer) {
   // Show the customer details
-  document.getElementById("viewCustomerId").textContent = customer.id;
+  document.getElementById("viewCustomerId").textContent = customer.custId;
   document.getElementById("viewCustomerName").textContent = customer.firstName + " " + customer.lastName;
   document.getElementById("viewCustomerGender").textContent = customer.gender;
   document.getElementById("viewCustomerOccupation").textContent = customer.occupation;
@@ -80,7 +80,7 @@ function showCustomerdetails(customer) {
   document.getElementById("viewCustomerPhno").textContent = customer.phone;
   document.getElementById("viewCustomerEmail").textContent = customer.email;
   document.getElementById("viewCustomerAdi").textContent = customer.additionalInfo;
-  document.getElementById("viewCustomerImage").src = genderPicture(customer);
+  document.getElementById("viewCustomerImage").src = genderPicture(customer.gender);
 
   // Show the view product modal
   const viewCustomerModal = new bootstrap.Modal(document.getElementById("ViewCustomerModal"));
@@ -90,7 +90,7 @@ function showCustomerdetails(customer) {
 
 function showUpdateCustomerDetails(customer) {
   // Update the customer details
-  document.getElementById("UpdateCustomerId").value = customer.id || "";
+  document.getElementById("UpdateCustomerId").value = customer.custId || "";
   document.getElementById("UpdateCustomerFirstName").value = customer.firstName || "";
   document.getElementById("UpdateCustomerLastName").value = customer.lastName || "";
   document.getElementById("UpdateCustomerGender").value = customer.gender || "";
@@ -122,7 +122,7 @@ function showUpdateCustomerDetails(customer) {
 
 
 
-function deleteCustomer(id) {
+function deleteCustomer(custId) {
   const raw = "";
 
   const requestOptions = {
@@ -131,7 +131,7 @@ function deleteCustomer(id) {
     redirect: "follow"
   };
 
-  fetch(`http://localhost:8080/customer/delete/${id}`, requestOptions)
+  fetch(`http://localhost:8080/customer/delete/${custId}`, requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.error(error));
@@ -146,7 +146,7 @@ function UpdateCustomer(customer) {
   myHeaders.append("Content-Type", "application/json");
 
   const raw = JSON.stringify({
-    "id": customer.id,
+    "custId": customer.custId,
     "firstName": document.getElementById("UpdateCustomerFirstName").value,
     "lastName": document.getElementById("UpdateCustomerLastName").value,
     "gender": document.getElementById("UpdateCustomerGender").value,
