@@ -2,119 +2,139 @@ import { getProducts, SearchProductUsingIndex } from "./data.js";
 console.log("Place Order Page Loaded...");
 
 
+
 //Category Icons
 let categoryIcons = document.querySelectorAll(".category-img");
-
-//Items
-let items = getProducts();
-
 //items bar handling and loading items to the grid
 categoryIcons.forEach((icon) => {
   icon.addEventListener("click", function () {
 
     document.getElementById("items-grid").innerHTML = '';
 
-    if (icon.id === "category-1") {
-      console.log(items.Burgers);
+    if (icon.id === "category-1") {//burgers
+      getProductsByCategory("Burgers");
 
-      for (let i = 0; i < items.Burgers.length; i++) {
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
-             <div class="card h-100" data-index="${i}" data-category="Burgers">
-                 <img src="/Images and lcons/turkey-burger.png" class="card-img-top" alt="Item 1">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${items.Burgers[i].name}</h5>
-                     <p class="card-text">Rs ${items.Burgers[i].price}.00</p>
-                 </div>
-             </div>
-         </div>`;
+    } else if (icon.id === "category-2") { //pastas
+      getProductsByCategory("Pastas");
 
-      }
-    } else if (icon.id === "category-2") {
-      console.log(items.Pasta);
+    } else if (icon.id === "category-3") { //chicken
+      getProductsByCategory("Chicken");
 
-      for (let i = 0; i < items.Pasta.length; i++) {
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
-             <div class="card h-100" data-index="${i}" data-category="Pasta">
-                 <img src="/Images and lcons/pasta.png" class="card-img-top" alt="Item 1">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${items.Pasta[i].name}</h5>
-                     <p class="card-text">Rs ${items.Pasta[i].price}.00</p>
-                 </div>
-             </div>
-         </div>`;
-      }
-    } else if (icon.id === "category-3") {
-      console.log(items.Chicken);
+    } else if (icon.id === "category-4") { //fries
+      getProductsByCategory("Fries");
 
-      for (let i = 0; i < items.Chicken.length; i++) {
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
-             <div class="card h-100" data-index="${i}" data-category="Chicken">
-                 <img src="/Images and lcons/chicken.png" class="card-img-top" alt="Item 1">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${items.Chicken[i].name}</h5>
-                     <p class="card-text">Rs ${items.Chicken[i].price}.00</p>
-                 </div>
-             </div>
-         </div>`;
+    } else if (icon.id === "category-5") { //submarines
+      getProductsByCategory("Submarines");
 
-      }
-    } else if (icon.id === "category-4") {
-      console.log(items.Fries);
+    } else if (icon.id === "category-6") { //beverages
+      getProductsByCategory("Beverages");
 
-      for (let i = 0; i < items.Fries.length; i++) {
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
-             <div class="card h-100" data-index="${i}" data-category="Fries">
-                 <img src="/Images and lcons/fries.png" class="card-img-top" alt="Item 1">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${items.Fries[i].name}</h5>
-                     <p class="card-text">Rs ${items.Fries[i].price}.00</p>
-                 </div>
-             </div>
-         </div>`;
-      }
-    } else if (icon.id === "category-5") {
-      console.log(items.Submarines);
-
-      for (let i = 0; i < items.Submarines.length; i++) {
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
-             <div class="card h-100" data-index="${i}" data-category="Submarines">
-                 <img src="/Images and lcons/Submarine bun.png" class="card-img-top" alt="Item 1">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${items.Submarines[i].name}</h5>
-                     <p class="card-text">Rs ${items.Submarines[i].price}.00</p>
-                 </div>
-             </div>
-         </div>`;
-      }
-    } else if (icon.id === "category-6") {
-      console.log(items.Beverages);
-
-      for (let i = 0; i < items.Beverages.length; i++) {
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3">
-             <div class="card h-100" data-index="${i}" data-category="Beverages">
-                 <img src="/Images and lcons/bevarages.png">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${items.Beverages[i].name}</h5>
-                     <p class="card-text">Rs ${items.Beverages[i].price}.00</p>
-                 </div>
-             </div>
-         </div>`;
-      }
     }
   });
 });
+
+
+//get Product by Category
+function getProductsByCategory(category) {
+  return fetch(`http://localhost:8080/product/get-by-category/${category}`)
+    .then(response => response.json())
+    .then((items) => {
+      items.forEach((item, index) => {
+        console.log(item);
+        document.getElementById("items-grid").innerHTML +=
+          `<div class="col mb-3" data-index="${index}">
+             <div class="card h-100" data-index="${index}" data-category="Burgers">
+                 <img src="/Images and lcons/turkey-burger.png" class="card-img-top" alt="Item 1">
+                 <div class="card-body text-center pt-0">
+                     <hr class="my-1">
+                     <h5 class="card-title">${item.name}</h5>
+                     <p class="card-text">Rs ${item.price}.00</p>
+                 </div>
+             </div>
+         </div>`;
+      });
+
+
+      // Add event listener for clicking on cards
+      document.getElementById("items-grid").addEventListener("click", function (event) {
+        const card = event.target.closest('.col');
+        if (card) {
+          const itemIndex = card.getAttribute('data-index');
+          const item = items[itemIndex];
+          console.log(item);
+          console.log("Clicked item data:");
+          addItemCartSection(item);
+        }
+      });
+
+    })
+}
+
+//make a cart array
+let cart = [];
+
+function addItemCartSection(product){
+  console.log("hello i'm here")
+  console.log(product);
+  //cart.push(product);
+  console.log(cart);
+
+  // find product in cart if its not there add it to cart or increment quantity
+  const existingProduct = cart.find(item => item.name === product.name);
+  if (existingProduct) {
+    existingProduct.quantity++;
+  } else {
+    //make new obj name price and quantity buying from product obj
+    cart.push({id: product.productId, name: product.name, price: product.price, quantity: 1});
+  }
+
+  
+
+  
+
+
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Trigger the "Burgers" category items on page load
 document.addEventListener("DOMContentLoaded", function () {
@@ -150,7 +170,7 @@ document.getElementById("items-grid").addEventListener("click", function (event)
 
   // Initialize the cartItems object if not already defined
   if (!window.cartItems) {
-    window.cartItems = {};
+    window  .cartItems = {};
   }
 
   //qty update
