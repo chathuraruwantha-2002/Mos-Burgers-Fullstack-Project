@@ -18,29 +18,41 @@
     <!-- Navbar -->
     <nav class="navbar-rounded">
         <div class="dropdown profile-animation">
-            <img src="/Images and lcons/man.png" alt="Profile" title="Profile" class="profile-img" data-toggle="dropdown">
+            <img src="/Images and lcons/man.png" alt="Profile" title="Profile" class="profile-img"
+                data-toggle="dropdown">
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</a>
                 <a class="dropdown-item" href="/HTML Files/login.html"><i class="bi bi-box-arrow-right"></i> Logout</a>
             </div>
         </div>
         <div class="icon-btn">
-            <a href="/HTML Files/homepage.html"><img src="https://img.icons8.com/?size=100&id=14096&format=png&color=000000" alt="Home" title="Home"></a>
+            <a href="/HTML Files/homepage.html"><img
+                    src="https://img.icons8.com/?size=100&id=14096&format=png&color=000000" alt="Home" title="Home"></a>
         </div>
         <div class="icon-btn">
-            <a href="/HTML Files/place_order.html"><img src="https://img.icons8.com/?size=100&id=3576&format=png&color=000000" alt="Place Order" title="Place Order"></a>
+            <a href="/HTML Files/place_order.html"><img
+                    src="https://img.icons8.com/?size=100&id=3576&format=png&color=000000" alt="Place Order"
+                    title="Place Order"></a>
         </div>
         <div class="icon-btn">
-            <a href="/HTML Files/items_manager.html"><img src="https://img.icons8.com/?size=100&id=STk3pGIlNVNO&format=png&color=000000" alt="Items Manager" title="Items Manager"></a>
+            <a href="/HTML Files/items_manager.html"><img
+                    src="https://img.icons8.com/?size=100&id=STk3pGIlNVNO&format=png&color=000000" alt="Items Manager"
+                    title="Items Manager"></a>
         </div>
         <div class="icon-btn">
-            <a href="/HTML Files/orders_manager.html"><img src="https://img.icons8.com/?size=100&id=22168&format=png&color=000000" alt="Orders Manager" title="Orders Manager"></a>
+            <a href="/HTML Files/orders_manager.html"><img
+                    src="https://img.icons8.com/?size=100&id=22168&format=png&color=000000" alt="Orders Manager"
+                    title="Orders Manager"></a>
         </div>
         <div class="icon-btn">
-            <a href="/HTML Files/customer_manager.html"><img src="https://img.icons8.com/?size=100&id=u3hwP-G9VHC3&format=png&color=000000" alt="Customers Manager" title="Customers Manager"></a>
+            <a href="/HTML Files/customer_manager.html"><img
+                    src="https://img.icons8.com/?size=100&id=u3hwP-G9VHC3&format=png&color=000000"
+                    alt="Customers Manager" title="Customers Manager"></a>
         </div>
         <div class="icon-btn">
-            <a href="/HTML Files/reports.html"><img src="https://img.icons8.com/?size=100&id=9646&format=png&color=000000" alt="Reports" title="Reports"></a>
+            <a href="/HTML Files/reports.html"><img
+                    src="https://img.icons8.com/?size=100&id=9646&format=png&color=000000" alt="Reports"
+                    title="Reports"></a>
         </div>
     </nav>
 
@@ -62,19 +74,22 @@
                 <!-- Category Icons Section -->
                 <div class="category-icons-container p-2">
                     <div class="category-icons d-flex justify-content-center gap-4">
-                        <img src="/Images and lcons/turkey-burger.png" alt="Category 1" class="category-img" id="category-1">
+                        <img src="/Images and lcons/turkey-burger.png" alt="Category 1" class="category-img"
+                            id="category-1">
                         <img src="/Images and lcons/pasta.png" alt="Category 2" class="category-img" id="category-2">
                         <img src="/Images and lcons/Chicken.png" alt="Category 3" class="category-img" id="category-3">
                         <img src="/Images and lcons/fries.png" alt="Category 4" class="category-img" id="category-4">
-                        <img src="/Images and lcons/Submarine bun.png" alt="Category 5" class="category-img" id="category-5">
-                        <img src="/Images and lcons/bevarages.png" alt="Category 6" class="category-img" id="category-6">
+                        <img src="/Images and lcons/Submarine bun.png" alt="Category 5" class="category-img"
+                            id="category-5">
+                        <img src="/Images and lcons/bevarages.png" alt="Category 6" class="category-img"
+                            id="category-6">
                     </div>
                 </div>
 
                 <!-- Items Grid -->
                 <div class="items-grid-container p-3 mt-2">
                     <div class="row g-3" id="items-grid">
-                        
+
                     </div>
                 </div>
 
@@ -101,17 +116,27 @@
                         <!-- Input Fields -->
                         <input type="text" class="form-control mb-2" placeholder="Search By Phone">
                         <input type="text" class="form-control mb-2" placeholder="Customer Name">
-                        <textarea class="form-control mb-2" id="cart-section" rows="3" placeholder="Cart details"></textarea>
+                        <textarea class="form-control mb-2" id="cart-section" rows="3"
+                            placeholder="Cart details"></textarea>
                         <input type="text" class="form-control mb-2" placeholder="Additional details">
-                        <input type="text" class="form-control mb-2 col-4" placeholder="Add Discount" id="add-discount">
+                        <!-- Discount & Tax same row-->
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex gap-2">
+                                <input type="text" class="form-control mb-2 col-3" placeholder="Add Discount" id="add-discount">
+                                <input type="text" class="form-control mb-2 col-3" placeholder="Add Tax" id="add-tax">
+                                <input type="text" class="form-control mb-2 col-5.5" placeholder="Method" id="payment-method">
+                            </div>
+                        </div>
+
 
                         <!-- Price & Details -->
                         <div class="row">
                             <!-- Price Details -->
                             <div class="col-sm-6 p-3 ">
-                                <h3 class="mb-2" id="viewOrderTotal">Total : Rs 0.00</h3>
-                                <p class="mb-1 " id="viewOrderSubTotal">Sub Total : Rs 0.00</p>
-                                <p class="mb-0 " id="viewOrderDiscount">Discount : Rs 0.00</p>
+                                <p class="m-1 " id="viewOrderSubTotal">Sub Total : Rs 0.00</p>
+                                <p class="m-1 " id="viewOrderDiscount">Discount : Rs 0.00</p>
+                                <p class="m-1 " id="viewOrderTax">Tax : Rs 0.00</p>
+                                <h3 class="mt-2" id="viewOrderTotal">Total : Rs 0.00</h3>
                             </div>
 
                             <!-- 'Place Order, Clear' Buttons -->
@@ -125,7 +150,7 @@
                 </div>
 
             </div>
-            
+
 
 
         </div>

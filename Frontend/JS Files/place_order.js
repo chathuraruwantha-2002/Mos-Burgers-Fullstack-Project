@@ -1,138 +1,131 @@
-import { getProducts, SearchProductUsingIndex } from "./data.js";
-console.log("Place Order Page Loaded...");
 
-
-
-//Category Icons
 let categoryIcons = document.querySelectorAll(".category-img");
-//items bar handling and loading items to the grid
-categoryIcons.forEach((icon) => {
+categoryIcons.forEach(icon => {
   icon.addEventListener("click", function () {
-
     document.getElementById("items-grid").innerHTML = '';
-
-    if (icon.id === "category-1") {//burgers
-      getProductsByCategory("Burgers");
-
-    } else if (icon.id === "category-2") { //pastas
-      getProductsByCategory("Pastas");
-
-    } else if (icon.id === "category-3") { //chicken
-      getProductsByCategory("Chicken");
-
-    } else if (icon.id === "category-4") { //fries
-      getProductsByCategory("Fries");
-
-    } else if (icon.id === "category-5") { //submarines
-      getProductsByCategory("Submarines");
-
-    } else if (icon.id === "category-6") { //beverages
-      getProductsByCategory("Beverages");
-
-    }
+    getProductsByCategory(icon.id);
   });
 });
 
 
-//get Product by Category
-function getProductsByCategory(category) {
-  return fetch(`http://localhost:8080/product/get-by-category/${category}`)
-    .then(response => response.json())
-    .then((items) => {
-      items.forEach((item, index) => {
-        console.log(item);
-        document.getElementById("items-grid").innerHTML +=
-          `<div class="col mb-3" data-index="${index}">
-             <div class="card h-100" data-index="${index}" data-category="Burgers">
-                 <img src="/Images and lcons/turkey-burger.png" class="card-img-top" alt="Item 1">
-                 <div class="card-body text-center pt-0">
-                     <hr class="my-1">
-                     <h5 class="card-title">${item.name}</h5>
-                     <p class="card-text">Rs ${item.price}.00</p>
-                 </div>
-             </div>
-         </div>`;
-      });
+function getProductsByCategory(categoryId) {
+  let categoryName = ''; 
 
-
-      // Add event listener for clicking on cards
-      document.getElementById("items-grid").addEventListener("click", function (event) {
-        const card = event.target.closest('.col');
-        if (card) {
-          const itemIndex = card.getAttribute('data-index');
-          const item = items[itemIndex];
-          console.log(item);
-          console.log("Clicked item data:");
-          addItemCartSection(item);
-        }
-      });
-
-    })
-}
-
-//make a cart array
-let cart = [];
-
-function addItemCartSection(product){
-  console.log("hello i'm here")
-  console.log(product);
-  //cart.push(product);
-  console.log(cart);
-
-  // find product in cart if its not there add it to cart or increment quantity
-  const existingProduct = cart.find(item => item.name === product.name);
-  if (existingProduct) {
-    existingProduct.quantity++;
-  } else {
-    //make new obj name price and quantity buying from product obj
-    cart.push({id: product.productId, name: product.name, price: product.price, quantity: 1});
+  switch (categoryId) {
+    case 'category-1':
+      categoryName = 'Burgers';
+      break;
+    case 'category-2':
+      categoryName = 'Pastas';
+      break;
+    case 'category-3':
+      categoryName = 'Chicken';
+      break;
+    case 'category-4':
+      categoryName = 'Fries';
+      break;
+    case 'category-5':
+      categoryName = 'Submarines';
+      break;
+    case 'category-6':
+      categoryName = 'Beverages';
+      break;
+    default:
+      categoryName = 'Others';
   }
 
-  
+  fetch(`http://localhost:8080/product/get-by-category/${categoryName}`)
+    .then(response => response.json())
+    .then(items => {
+      generateItemsGrid(items);
+    });
+}
 
-  
 
+function generateItemsGrid(items) {
+  const itemsGrid = document.getElementById("items-grid");
+  itemsGrid.innerHTML = ''; 
 
+  items.forEach(item => {
+    const itemHTML = `
+      <div class="col mb-3" data-item-id="${item.productId}">
+        <div class="card h-100">
+          <img src="/Images and lcons/turkey-burger.png" class="card-img-top" alt="${item.name}">
+          <div class="card-body text-center">
+            <hr class="my-1">
+            <h5 class="card-title">${item.name}</h5>
+            <p class="card-text">Rs ${item.price}.00</p>
+          </div>
+        </div>
+      </div>`;
+    itemsGrid.innerHTML += itemHTML;
+  });
 
-  
+  // Add event listener for card clicks
+  const productCards = itemsGrid.querySelectorAll(".card");
+  productCards.forEach(card => {
+    card.addEventListener("click", function (event) {
+      const itemId = card.closest('.col').getAttribute('data-item-id');
+      const item = items.find(i => i.productId == itemId);
+      addToCart(item);
+    });
+  });
+}
+
+// Cart Handling
+let cart = [];
+
+// Function to add items to cart
+function addToCart(item) {
+  console.log(cart);
+  const existingItem = cart.find(cartItem => cartItem.productId === item.productId);
+  if (existingItem) {
+    existingItem.quantity++;
+  } else {
+    cart.push({ ...item, quantity: 1 });
+  }
+  updateCartView();
 }
 
 
 
 
+// Function to update the cart view
+function updateCartView() {
+  const cartSection = document.getElementById("cart-section");
+  let cartText = '';
+  let SubTotal = 0;
+  let discount = 0;
+  let total = 0;
+  let tax = 0;
+
+  cart.forEach(item => {
+    const { name, price, quantity } = item;
+
+    // format the text for display
+    const lineWidth = 50;
+    const paddedName = name.padEnd(lineWidth - (price.toString().length + quantity.toString().length));
+    const formattedText = `${paddedName}${quantity}            Rs ${price * quantity}`;
+
+    cartText += `${formattedText}\n`;
+    SubTotal += price * quantity;
+  });
+  
+  cartSection.value = cartText;
+
+  discount = document.getElementById("add-discount").value / 100 * SubTotal;
+  tax = document.getElementById("add-tax").value / 100 * SubTotal;
+
+  total = SubTotal - discount + tax;
 
 
 
+  document.getElementById("viewOrderSubTotal").innerText = `Sub Total: Rs ${SubTotal}.00`;
+  document.getElementById("viewOrderTax").innerText = `Tax: Rs ${tax}.00`;
+  document.getElementById("viewOrderDiscount").innerText = `Discount: Rs ${discount}.00`;
+  document.getElementById("viewOrderTotal").innerText = `Total: Rs ${total}.00`;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
@@ -143,6 +136,32 @@ document.addEventListener("DOMContentLoaded", function () {
     burgersIcon.click();
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Add items to the place order cart
