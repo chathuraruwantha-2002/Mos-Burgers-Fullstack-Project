@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/order-item-details")
 @RequiredArgsConstructor
+@CrossOrigin
 public class OrderItemDetailsController {
 
     final OrderItemDetailsService service;

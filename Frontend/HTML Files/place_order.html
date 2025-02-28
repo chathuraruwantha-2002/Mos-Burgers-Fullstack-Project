@@ -103,8 +103,8 @@
                 <div class="container mt-5 p-3 billing-area">
                     <div class="cart-section  p-3">
                         <!-- Title and Date -->
-                        <h5 class="mb-0">P001</h5>
-                        <h5 class="mb-1 text-muted">2023-12-12</h5>
+                        <h5 class="mb-0" id = "orderId">P001</h5>
+                        <h5 class="mb-1 text-muted" id ="date">2023-12-12</h5>
 
                         <!-- Add customer  -->
                         <div class="d-flex justify-content-end mb-2">
@@ -118,7 +118,7 @@
                         <input type="text" class="form-control mb-2" placeholder="Customer Name">
                         <textarea class="form-control mb-2" id="cart-section" rows="3"
                             placeholder="Cart details"></textarea>
-                        <input type="text" class="form-control mb-2" placeholder="Additional details">
+                        <input type="text" class="form-control mb-2" placeholder="Additional details" id="additional-details">
                         <!-- Discount & Tax same row-->
                         <div class="d-flex justify-content-between">
                             <div class="d-flex gap-2">
@@ -142,7 +142,7 @@
                             <!-- 'Place Order, Clear' Buttons -->
                             <div class="col-sm-5 d-flex flex-column justify-content-end m-2">
                                 <button class="btn btn-place-order w-100 mb-2" id="btn-place-order">Place Order</button>
-                                <button class="btn btn-clear w-100 mb-2">Clear</button>
+                                <button class="btn btn-clear w-100 mb-2" id="btn-clear">Clear</button>
                             </div>
 
                         </div>
