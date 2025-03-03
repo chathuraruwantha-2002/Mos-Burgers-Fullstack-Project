@@ -1,3 +1,10 @@
+let userId = document.getElementById("userId");
+let password = document.getElementById("password");
+
+
+
+
+
 document.getElementById("loginButton").addEventListener("click", function (e) {
     e.preventDefault();
   

@@ -12,6 +12,8 @@ categoryIcons.forEach(icon => {
 });
 
 
+
+
 function getProductsByCategory(categoryId) {
   let categoryName = '';
 
