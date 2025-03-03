@@ -1,12 +1,10 @@
 package edu.icet.controller;
 
 
+import edu.icet.dto.User;
 import edu.icet.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -16,8 +14,15 @@ public class UserController {
 
     private final UserService userService;
 
-    @RequestMapping("/userNameExists/{userName}")
-    public boolean userNameExists( @PathVariable String userName) {
-        return userService.userNameExists(userName);
+    @GetMapping("get-user/{userId}/{password}")
+    public boolean getUserPasswordValidation(@PathVariable String userId, @PathVariable String password) {
+        return userService.getUserPasswordValidation(userId, password);
     }
+
+    @GetMapping("get-user/{userId}")
+    public User getUser(@PathVariable String userId) {
+        return userService.getUser(userId);
+    }
+
+
 }

@@ -1,26 +1,30 @@
-let userId = document.getElementById("userId");
-let password = document.getElementById("password");
-
-
-
-
-
 document.getElementById("loginButton").addEventListener("click", function (e) {
-    e.preventDefault();
+  e.preventDefault();
+  validateUserCredentials();
+});
+
+function validateUserCredentials() {
+  const userId = document.getElementById("userId").value.trim();
+  let password = document.getElementById("password").value.trim();
+
+  //fetch from database
+  const requestOptions = {
+    method: "GET",
+    redirect: "follow"
+  };
   
-    // Get the input values
-    const userId = document.getElementById("userId").value.trim();
-    const password = document.getElementById("password").value.trim();
-  
-    // valid user id and password
-    const validUserId = "chathura";
-    const validPassword = "user";
-  
-    // Validation with strict equality for high protection
-    if (userId === validUserId && password === validPassword) {
-      window.location.href = "homepage.html";//redirect to homepage
-    } else {
-      alert("Invalid User ID or Password. Please try again.");
-    }
-  });
-  
+  fetch(`http://localhost:8080/user/get-user/${userId}/${password}`, requestOptions)
+    .then((response) => response.text())
+    .then((result) => {
+
+      console.log(result);
+      if (result === "true") {
+        //send the user id to the homepage
+        sessionStorage.setItem("userId", userId);
+        window.location.href = "homepage.html";//redirect to homepage
+      } else {
+        alert("Invalid User ID or Password. Please try again.");
+      }
+    })
+    .catch((error) => console.error(error));
+}
