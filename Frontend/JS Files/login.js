@@ -23,7 +23,7 @@ function validateUserCredentials() {
         sessionStorage.setItem("userId", userId);
         window.location.href = "homepage.html";//redirect to homepage
       } else {
-        alert("Invalid User ID or Password. Please try again.");
+        alert("Invalid Email or Password. Please try again.");
       }
     })
     .catch((error) => console.error(error));
