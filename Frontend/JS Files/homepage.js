@@ -2,6 +2,8 @@ const userId = sessionStorage.getItem("userId");
 console.log(userId);
 
 getUser(userId);
+updateCalendar();
+
 
 setDateandTime();
 function setDateandTime() {
@@ -29,17 +31,46 @@ function getUser(userId) {
 }
 
 
-function updatedate() {
-    const now = new Date();
-    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = new Intl.DateTimeFormat('en-US', dateOptions).format(now);
-    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-    const formattedTime = new Intl.DateTimeFormat('en-US', timeOptions).format(now);
+function updateCalendar() {
+    
+    var currentMonth = new Date().getMonth();
+    var currentYear = new Date().getFullYear();
+    var currentDate = new Date().getDate();
 
-    document.getElementById("weekday").textContent = now.toLocaleDateString('en-US', { weekday: 'long' });
-    document.getElementById("date").textContent = formattedDate;
-    document.getElementById("time").textContent = formattedTime;
+    console.log(currentMonth, currentYear, currentDate);
+
+
+    var totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+    var firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    var calendarContainer = document.getElementById("calenderDates");
+    
+    calendarContainer.innerHTML = "";
+
+
+    for (let i = 0; i < firstDay; i++) {
+        calendarContainer.innerHTML += `<div class="day col-sm p-2"></div>`;
+    }
+
+    for (let i = 1; i <= totalDays; i++) {
+        let dayOfWeek = new Date(currentYear, currentMonth, i).toLocaleString('en-us', { weekday: 'long' });
+
+        calendarContainer.innerHTML += `
+        <div class="day col-sm p-2 border border border-left-0 border-top-0 text-truncate" style="width:100px; height:100px">
+            <h5 class="row align-items-center">
+                <span class="date col-1">${i}</span>
+                <small class="col d-sm-none text-center text-muted">${dayOfWeek}</small>
+                <span class="col-1"></span>
+            </h5>
+        </div>`;
+
+
+        if ((i + firstDay) % 7 === 0) {
+            calendarContainer.innerHTML += `<div class="w-100"></div>`;
+        }
+    }
+
+    for (let i = 0; i < 7 - ((totalDays + firstDay) % 7); i++) {
+        calendarContainer.innerHTML += `<div class="day col-sm p-2"></div>`;
+    }
 }
-
-updatedate();
 
