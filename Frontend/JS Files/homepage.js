@@ -27,3 +27,19 @@ function getUser(userId) {
         })
         .catch((error) => console.error(error));
 }
+
+
+function updatedate() {
+    const now = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Intl.DateTimeFormat('en-US', dateOptions).format(now);
+    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+    const formattedTime = new Intl.DateTimeFormat('en-US', timeOptions).format(now);
+
+    document.getElementById("weekday").textContent = now.toLocaleDateString('en-US', { weekday: 'long' });
+    document.getElementById("date").textContent = formattedDate;
+    document.getElementById("time").textContent = formattedTime;
+}
+
+updatedate();
+
